@@ -1,0 +1,15 @@
+{
+  "name": "company-messenger",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Private realtime messenger for a company team.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node scripts/smoke-test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

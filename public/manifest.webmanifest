@@ -1,0 +1,15 @@
+{
+  "name": "Company Messenger",
+  "short_name": "Messenger",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f3ec",
+  "theme_color": "#f7f3ec",
+  "icons": [
+    {
+      "src": "/brand-mark.svg",
+      "sizes": "76x76",
+      "type": "image/svg+xml"
+    }
+  ]
+}
