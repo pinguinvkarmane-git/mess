@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { createReadStream, existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:http';
-import { extname, join, normalize, resolve } from 'node:path';
+import { extname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
@@ -135,11 +135,14 @@ function serveStatic(request, response) {
     return;
   }
 
-  const normalized = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, '');
-  const relativePath = normalized === '/' ? 'index.html' : normalized.replace(/^[/\\]/, '');
+  const decodedPathname = decodeURIComponent(pathname);
+  const relativePath = (decodedPathname === '/' ? '/index.html' : decodedPathname)
+    .split('/')
+    .filter((segment) => segment && segment !== '.' && segment !== '..')
+    .join('/');
   const filePath = resolve(publicDir, relativePath);
 
-  if (!filePath.startsWith(publicDir)) {
+  if (filePath !== publicDir && !filePath.startsWith(`${publicDir}${sep}`)) {
     sendText(response, 403, 'Forbidden');
     return;
   }
